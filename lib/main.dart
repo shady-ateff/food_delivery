@@ -11,7 +11,8 @@ const MyApp({ Key? key }) : super(key: key);
   @override
   Widget build(BuildContext context){
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Talabak',
       home: HomePage(),
     );
   }
