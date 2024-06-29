@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 //import 'package:food_delivery/pages/home_page.dart';
 
@@ -7,9 +9,21 @@ class OffersBanners extends StatefulWidget {
   State<OffersBanners> createState() => _OffersBannersState();
 }
 
-
 class _OffersBannersState extends State<OffersBanners> {
-  int? offerIndex;
+  int offerIndex = 0;
+  Timer? timer;
+  final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      offerIndex = (offerIndex + 1) % 2; //
+      _pageController.animateToPage(offerIndex,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -19,7 +33,7 @@ class _OffersBannersState extends State<OffersBanners> {
           height: 150,
           child: PageView(
             //physics: const NeverScrollableScrollPhysics(),
-            controller: PageController(),
+            controller: _pageController,
             onPageChanged: (index) {
               setState(() {
                 offerIndex = index;
@@ -63,19 +77,19 @@ class _OffersBannersState extends State<OffersBanners> {
                   2,
                   (index) => offerIndex == index
                       ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                        child: CustomPaint(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                          child: CustomPaint(
                             size: const Size(7, 7),
                             painter: CirclePainter(Colors.white60),
                           ),
-                      )
+                        )
                       : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                        child: CustomPaint(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                          child: CustomPaint(
                             size: const Size(5, 5),
                             painter: CirclePainter(Colors.black26),
                           ),
-                      ),
+                        ),
                 )),
             const SizedBox(
               height: 10,
@@ -87,16 +101,14 @@ class _OffersBannersState extends State<OffersBanners> {
   }
 }
 
-
 class CirclePainter extends CustomPainter {
-  Color  color = Colors.black45;
+  Color color = Colors.black45;
 
   CirclePainter(this.color);
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = color
-
       ..strokeWidth = 4.0
       ..style = PaintingStyle.fill;
 
