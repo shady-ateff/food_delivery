@@ -15,9 +15,10 @@ class _FavoritePageState extends State<FavoritePage> {
     return ListView.builder(
       padding: EdgeInsets.symmetric(vertical: 20 ,horizontal: 7),
       shrinkWrap: true,
-      itemCount: Menu.length,
+      itemCount: Menu.where((menuItem)=> menuItem.isFavorite == true).length,
       itemBuilder: (context ,index) {
-        return FavoriteItemsWidget(menuItem: Menu[index]);
+        return FavoriteItemsWidget(menuItem: Menu.where((menuItem)=> menuItem.isFavorite == true).elementAt(index));
+
       },
       );
   }

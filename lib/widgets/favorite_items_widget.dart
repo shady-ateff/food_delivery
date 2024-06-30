@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 
-class FavoriteItemsWidget extends StatelessWidget {
+class FavoriteItemsWidget extends StatefulWidget {
   final MenuItem menuItem;
   const FavoriteItemsWidget({super.key, required this.menuItem});
 
+  @override
+  State<FavoriteItemsWidget> createState() => _FavoriteItemsWidgetState();
+}
+
+class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -17,7 +22,7 @@ class FavoriteItemsWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.03,
           ),
           Image.asset(
-            menuItem.location,
+            widget.menuItem.location,
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height * 0.10,
           ),
@@ -27,14 +32,14 @@ class FavoriteItemsWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  menuItem.name,
+                  widget.menuItem.name,
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
                 ),
                 Text(
-                  "${menuItem.price}\$ ",
+                  "${widget.menuItem.price}\$ ",
                   style: const TextStyle(
                     color: Color.fromARGB(255, 208, 28, 37),
                     fontSize: 17,
@@ -47,9 +52,30 @@ class FavoriteItemsWidget extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.03,
           ),
-          const Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Icon(Icons.favorite),
+          // Padding(
+          //   padding: const EdgeInsets.all(10.0),
+          //   child: InkWell(
+          //     onTap: () {
+          //       setState(() {
+          //         widget.menuItem.isFavorite = !widget.menuItem.isFavorite!;
+          //       });
+          //     },
+          //     child: const Icon(
+          //       Icons.favorite,
+          //       color: Color.fromARGB(255, 232, 34, 8),
+          //     ),
+          //   ),
+          // ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                widget.menuItem.isFavorite = !widget.menuItem.isFavorite!;
+              });
+            },
+            icon: Icon(
+              widget.menuItem.isFavorite!? Icons.favorite :Icons.favorite_border,
+              color: const Color.fromARGB(255, 232, 34, 8),
+            ),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.03,
