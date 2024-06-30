@@ -30,7 +30,7 @@ class _OffersBannersState extends State<OffersBanners> {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          height: 150,
+          height: MediaQuery.of(context).size.height * 0.15, //get the hight of screen and make container hight relational with screen hight
           child: PageView(
             //physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,

@@ -14,5 +14,10 @@ List<MenuItem> Menu =[
   MenuItem(name: "Chicken Roll", location: "assets/images/item (4).png", price: 2.99),
   MenuItem(name: "Zo Beef Burger", location: "assets/images/item (5).png", price: 3.99),
   MenuItem(name: "Super Beef Burger", location: "assets/images/item (6).png", price: 4.99),
+  MenuItem(name: "Dummy Beef Burger", location: "assets/images/item (6).png", price: 4.99),
+  MenuItem(name: "Dummy Beef Burger", location: "assets/images/item (6).png", price: 4.99),
+  MenuItem(name: "Dummy Beef Burger", location: "assets/images/item (6).png", price: 4.99),
+  MenuItem(name: "Dummy Beef Burger", location: "assets/images/item (6).png", price: 4.99),
+
 
 ];

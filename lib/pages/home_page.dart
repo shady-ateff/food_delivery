@@ -14,21 +14,25 @@ class _HomePageState extends State<HomePage> {
   List<Color> color = [Colors.black45];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      //shrinkWrap: true,
-      //padding: const EdgeInsets.all(10),
-      children: [
-        const SizedBox(
-          height: 40,
-        ),
-        const OffersBanners(),
-        const SizedBox(
-          height: 40,
-        ),
-        Expanded(
-          child: Padding(
+    Size screenSize = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Column(
+        //shrinkWrap: true,
+        //padding: const EdgeInsets.all(10),
+        children: [
+          SizedBox(
+            height: screenSize.height * 0.03,
+          ),
+          const OffersBanners(),
+          SizedBox(
+            height: screenSize.height * 0.03,
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(), //to stop scrolling by grid view and insted of it scroll by singleChild viee
+              shrinkWrap: true,  //to shrink gride view to be only as height of its children
               itemCount: Menu.length,
               itemBuilder: (context, index) {
                 return MenuWidget(
@@ -41,9 +45,9 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 20,
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
