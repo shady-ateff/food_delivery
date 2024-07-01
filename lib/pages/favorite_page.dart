@@ -2,77 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/widgets/favorite_items_widget.dart';
 
+// Define the FavoritePage widget
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
   @override
-  _FavoritePageState createState() => _FavoritePageState();
+  FavoritePageState createState() => FavoritePageState();
 }
 
-class _FavoritePageState extends State<FavoritePage> {
+// Define the FavoritePageState class
+class FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(vertical: 20 ,horizontal: 7),
-      shrinkWrap: true,
-      itemCount: Menu.where((menuItem)=> menuItem.isFavorite == true).length,
-      itemBuilder: (context ,index) {
-        return FavoriteItemsWidget(menuItem: Menu.where((menuItem)=> menuItem.isFavorite == true).elementAt(index));
+    // Get the screen size
+    Size screenSize = MediaQuery.of(context).size;
 
-      },
+    // Filter the menu items to get the favorite ones
+    List favoriteList = Menu.where((menuItem) => menuItem.isFavorite!).toList();
+
+    // Check if there are any favorite items
+    if (favoriteList.isNotEmpty) {
+      // If there are favorite items, display them in a ListView
+      return ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 7),
+        shrinkWrap: true,
+        itemCount: favoriteList.length,
+        itemBuilder: (context, index) {
+          // Return a FavoriteItemsWidget for each favorite item
+          return FavoriteItemsWidget(
+              menuItem: favoriteList.elementAt(index),
+              onFavoriteTapped: (menuItem) {
+                setState(() {
+                  favoriteList.remove(menuItem);
+                });
+              });
+        },
       );
+    } else {
+      // If there are no favorite items, display a message
+      return Center(
+        child: Text(
+          "No Favorite Items",
+          style: TextStyle(
+            fontSize: screenSize.width * 0.06,
+            fontWeight: FontWeight.bold,
+            color: const Color.fromARGB(255, 208, 28, 37),
+          ),
+        ),
+      );
+    }
   }
 }
-
-// Column(
-//       children: [
-//         // Container(
-//         //     margin: const EdgeInsets.all(20),
-//         //     decoration: BoxDecoration(
-//         //       borderRadius: BorderRadius.circular(20),
-//         //       color: Colors.white,
-//         //     ),
-//         //     //height: MediaQuery.of(context).size.height * 0.15,
-//         //     child: Row(
-//         //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         //         children: [
-//         //           Image.asset(Menu[0].location,
-//         //               fit: BoxFit.cover,
-//         //               height: MediaQuery.of(context).size.height * 0.10),
-//         //           Column(
-//         //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         //             crossAxisAlignment: CrossAxisAlignment.end,
-//         //             children: [
-//         //               Text(
-//         //                 Menu[0].name,
-//         //                 style: const TextStyle(
-//         //                   fontWeight: FontWeight.w600,
-//         //                   fontSize: 20,
-//         //                 ),
-//         //               ),
-//         //               Row(
-//         //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         //                 //crossAxisAlignment: CrossAxisAlignment.end,
-//         //                 children: [
-//         //                   Text(
-//         //                     "${Menu[0].price}\$ ",
-//         //                     style: const TextStyle(
-//         //                       color: Color.fromARGB(255, 208, 28, 37),
-//         //                       fontSize: 17,
-//         //                       fontWeight: FontWeight.w500,
-//         //                     ),
-//         //                   ),
-//         //                 ],
-//         //               ),
-//         //             ],
-//         //           ),
-//         //           //const SizedBox(width: 10,),
-//         //           const Padding(
-//         //             padding: EdgeInsets.all(10.0),
-//         //             child: Icon(Icons.favorite),
-//         //           ),
-//         //           //const SizedBox(width: 10,),
-//         //         ])),
-//         // ],
-    
-//     ])
