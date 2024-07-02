@@ -32,13 +32,14 @@ class _OffersBannerState extends State<OffersBanner> {
 
   @override
   Widget build(BuildContext context) {
+    //bool isLandscape =MediaQuery.of(context).orientation == Orientation.landscape;  //if you need to know if device on landscape mode orn ot
     // Return a Stack with a PageView and a column of indicators
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         // The PageView with offer images
-        Container(
-          height: MediaQuery.of(context).size.height * 0.15,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
           child: PageView(
             controller: _pageController,
             onPageChanged: (index) {

@@ -45,10 +45,10 @@ class _HomePageState extends State<HomePage> {
                 menuItem: menu[index],
               );
             },
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 20,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: (screenSize.width / 350).ceil(),
+              mainAxisSpacing: screenSize.height* 0.01,
+              crossAxisSpacing: screenSize.width* 0.01,
             ),
           ),
         ),

@@ -23,7 +23,13 @@ class FavoritePageState extends State<FavoritePage> {
     // Check if there are any favorite items
     if (favoriteList.isNotEmpty) {
       // If there are favorite items, display them in a ListView
-      return ListView.builder(
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: (screenSize.width / 650).ceil(),
+          childAspectRatio: 4,
+          mainAxisSpacing: screenSize.height * 0.01,
+          crossAxisSpacing: screenSize.width * 0.01,
+        ),
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 7),
         shrinkWrap: true,
         itemCount: favoriteList.length,
@@ -45,11 +51,14 @@ class FavoritePageState extends State<FavoritePage> {
         children: [
           Text(
             "No Favorite Items",
-            style:Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: screenSize.width*0.05),
           ),
-          SizedBox(height: screenSize.height * 0.01,),
+          SizedBox(
+            height: screenSize.height * 0.01,
+          ),
           Icon(
             size: screenSize.width * 0.06,
             Icons.favorite_border_rounded,

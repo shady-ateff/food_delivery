@@ -7,7 +7,7 @@ class MenuWidget extends StatefulWidget {
   final MenuItem menuItem;
 
   // Constructor for MenuWidget
-  const MenuWidget({Key? key, required this.menuItem}) : super(key: key);
+  const MenuWidget({super.key, required this.menuItem});
 
   @override
   State<MenuWidget> createState() => _MenuWidgetState();
@@ -18,6 +18,7 @@ class _MenuWidgetState extends State<MenuWidget> {
   Widget build(BuildContext context) {
     // Get the screen size
     Size screenSize = MediaQuery.of(context).size;
+    //final textScale = MediaQuery.of(context).textScaler;
 
     // Return a Stack with a Container and an Align widget
     return Stack(
@@ -25,34 +26,34 @@ class _MenuWidgetState extends State<MenuWidget> {
       children: [
         // The Container displays the menu item details "Can Replace it by Card"
         Card(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // Display the menu item image
-              Image.asset(
-                widget.menuItem.location,
-                width: screenSize.width * 0.2,
-                //fit: BoxFit.contain,
-              ),
-              // Display the menu item name
-              Text(
-                textAlign: TextAlign.center,
-                widget.menuItem.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .copyWith(fontWeight: FontWeight.w600),
-              ),
-              // Display the menu item price
-              Text(
-                "${widget.menuItem.price}\$",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .copyWith(color: Theme.of(context).primaryColor),
-              ),
-            ],
-          ),
+          child: LayoutBuilder(builder: (context, constraints) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Display the menu item image
+                Image.asset(
+                  widget.menuItem.location,
+                  width: constraints.maxWidth * 0.55,
+                  fit: BoxFit.cover,
+                ),
+                // Display the menu item name
+                Text(
+                  textAlign: TextAlign.center,
+                  widget.menuItem.name,
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: constraints.maxWidth * 0.08),
+                ),
+                // Display the menu item price
+                Text(
+                  "${widget.menuItem.price}\$",
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: constraints.maxWidth * 0.07),
+                ),
+              ],
+            );
+          }),
         ),
         // The Align widget displays a favorite icon
         Align(
@@ -66,7 +67,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                 });
               },
               icon: Icon(
-                size: screenSize.width * 0.053,
+                //size: screenSize.width * 0.053,
                 widget.menuItem.isFavorite!
                     ? Icons.favorite
                     : Icons.favorite_border,
