@@ -17,9 +17,8 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
   Widget build(BuildContext context) {
     // Return a Card widget with a rounded rectangle shape and elevation
     return Card(
-      elevation: 4,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      //elevation: 4,
+      //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -42,20 +41,18 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
                 // Display the menu item name
                 Text(
                   widget.menuItem.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
+                  style:Theme.of(context).textTheme.titleLarge!.copyWith(
+                  //color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold),
                 ),
 
                 // Display the menu item price
                 Text(
                   "${widget.menuItem.price}\$ ",
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 208, 28, 37),
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold)
+                  ,
                 ),
               ],
             ),
@@ -78,7 +75,7 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
                   ? Icons.favorite
                   : Icons
                       .favorite_border, //if their is attribute sended by constructor you access it by widget.AtName
-              color: const Color.fromARGB(255, 232, 34, 8),
+              color: Theme.of(context).primaryColor,
             ),
           ),
 

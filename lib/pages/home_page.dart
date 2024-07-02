@@ -39,10 +39,10 @@ class _HomePageState extends State<HomePage> {
             physics: const NeverScrollableScrollPhysics(),
             // Shrink the GridView to fit its children
             shrinkWrap: true,
-            itemCount: Menu.length,
+            itemCount: menu.length,
             itemBuilder: (context, index) {
               return MenuWidget(
-                menuItem: Menu[index],
+                menuItem: menu[index],
               );
             },
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

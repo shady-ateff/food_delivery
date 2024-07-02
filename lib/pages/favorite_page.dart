@@ -18,7 +18,7 @@ class FavoritePageState extends State<FavoritePage> {
     Size screenSize = MediaQuery.of(context).size;
 
     // Filter the menu items to get the favorite ones
-    List favoriteList = Menu.where((menuItem) => menuItem.isFavorite!).toList();
+    List favoriteList = menu.where((menuItem) => menuItem.isFavorite!).toList();
 
     // Check if there are any favorite items
     if (favoriteList.isNotEmpty) {
@@ -40,15 +40,22 @@ class FavoritePageState extends State<FavoritePage> {
       );
     } else {
       // If there are no favorite items, display a message
-      return Center(
-        child: Text(
-          "No Favorite Items",
-          style: TextStyle(
-            fontSize: screenSize.width * 0.06,
-            fontWeight: FontWeight.bold,
-            color: const Color.fromARGB(255, 208, 28, 37),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "No Favorite Items",
+            style:Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold),
           ),
-        ),
+          SizedBox(height: screenSize.height * 0.01,),
+          Icon(
+            size: screenSize.width * 0.06,
+            Icons.favorite_border_rounded,
+            color: Theme.of(context).primaryColor,
+          )
+        ],
       );
     }
   }

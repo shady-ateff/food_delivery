@@ -8,7 +8,7 @@ bool? isFavorite;
 
 }
 
-List<MenuItem> Menu =[
+List<MenuItem> menu =[
   MenuItem(name: "Original Beef Burger", location: "assets/images/item (1).png", price: 2.99 ),
   MenuItem(name: "Beef Burger & Fries", location: "assets/images/item (2).png", price: 3.49),
   MenuItem(name: "Chicken Burger\nExtra Ranch", location: "assets/images/item (3).png", price: 3.99),
