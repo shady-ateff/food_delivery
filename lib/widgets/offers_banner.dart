@@ -12,22 +12,30 @@ class OffersBanner extends StatefulWidget {
 
 class _OffersBannerState extends State<OffersBanner> {
   int offerIndex = 0;
-  Timer? timer;
+  late Timer? timer;
   final PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
     // Create a timer to animate the PageView every second
-    timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      // Update the offerIndex and animate to the next page
-      offerIndex = (offerIndex + 1) % offers.length;
-      _pageController.animateToPage(
-        offerIndex,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
+    Future.delayed(Duration.zero, () {
+      timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+        // Update the offerIndex and animate to the next page
+        offerIndex = (offerIndex + 1) % offers.length;
+        _pageController.animateToPage(
+          offerIndex,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -42,17 +50,13 @@ class _OffersBannerState extends State<OffersBanner> {
           height: MediaQuery.of(context).size.height * 0.2,
           child: PageView(
             controller: _pageController,
-            onPageChanged: (index) {
-              setState(() {
-                offerIndex = index;
-              });
-            },
             scrollDirection: Axis.horizontal,
             children: offers
                 .map((offer) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
                           offer.image,
                           fit: BoxFit.cover,
@@ -63,32 +67,32 @@ class _OffersBannerState extends State<OffersBanner> {
           ),
         ),
         // The column of indicators
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                offers.length,
-                (index) => offerIndex == index
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                        child: CustomPaint(
-                          size: const Size(7, 7),
-                          painter: CirclePainter(Colors.white60),
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                        child: CustomPaint(
-                          size: const Size(5, 5),
-                          painter: CirclePainter(Colors.black26),
-                        ),
-                      ),
-              ),
-            ),
-            const SizedBox(height: 10),
-          ],
-        ),
+        // Column(
+        //   children: [
+        //     Row(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: List.generate(
+        //         offers.length,
+        //         (index) => offerIndex == index
+        //             ? Padding(
+        //                 padding: const EdgeInsets.symmetric(horizontal: 2.5),
+        //                 child: CustomPaint(
+        //                   size: const Size(7, 7),
+        //                   painter: CirclePainter(Colors.white60),
+        //                 ),
+        //               )
+        //             : Padding(
+        //                 padding: const EdgeInsets.symmetric(horizontal: 2.5),
+        //                 child: CustomPaint(
+        //                   size: const Size(5, 5),
+        //                   painter: CirclePainter(Colors.black26),
+        //                 ),
+        //               ),
+        //       ),
+        //     ),
+        //     const SizedBox(height: 10),
+        //   ],
+        // ),
       ],
     );
   }

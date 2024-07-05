@@ -13,12 +13,18 @@ class FavoritePage extends StatefulWidget {
 // Define the FavoritePageState class
 class FavoritePageState extends State<FavoritePage> {
   @override
+  void dispose() {
+    super.dispose();
+    debugPrint("Favorite page disposed");
+  }
+  @override
   Widget build(BuildContext context) {
     // Get the screen size
     Size screenSize = MediaQuery.of(context).size;
 
     // Filter the menu items to get the favorite ones
     List favoriteList = menu.where((menuItem) => menuItem.isFavorite!).toList();
+    debugPrint(favoriteList.toString());
 
     // Check if there are any favorite items
     if (favoriteList.isNotEmpty) {
@@ -69,3 +75,4 @@ class FavoritePageState extends State<FavoritePage> {
     }
   }
 }
+

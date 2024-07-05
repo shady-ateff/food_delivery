@@ -14,7 +14,6 @@ class _BasePageState extends State<BasePage> {
   int _currentPage = 0;
   final PageController _homePageController = PageController();
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,45 +23,47 @@ class _BasePageState extends State<BasePage> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
+      // appBar: CupertinoNavigationBar( //for ios
+      //   middle: Text("Talabak")
+      // ),
       drawer: Drawer(child: ListView()),
       body: PageView(
+        allowImplicitScrolling: true,
         scrollDirection: Axis.horizontal,
         controller: _homePageController,
-        onPageChanged: (index) => setState(() {
-          _currentPage = index;
-        }),
-        children: const [
+        onPageChanged: (index) {
+          setState(() {
+            _currentPage = index;
+            
+            debugPrint("onPageChanged");
+          });
+        },
+        // ignore: prefer_const_literals_to_create_immutables
+        children: [
           HomePage(),
           FavoritePage(),
-          ProfilePage(),
+          const ProfilePage(),
         ],
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-        child: BottomNavigationBar(
-          elevation: 10,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite), label: 'Favorite'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-          currentIndex: _currentPage,
-          onTap: (index) {
-            setState(() {
-              _currentPage = index;
-              _homePageController.animateToPage(
-                _currentPage,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.ease,
-              );
-              debugPrint("page  $_currentPage");
-            });
-          },
-          backgroundColor: Theme.of(context).primaryColor,
-          selectedItemColor: Theme.of(context).scaffoldBackgroundColor,
-          unselectedItemColor: Colors.white38,
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 10,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), label: 'Favorite'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+        currentIndex: _currentPage,
+        onTap: (index) {
+          _homePageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
+        },
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).scaffoldBackgroundColor,
+        unselectedItemColor: Colors.white38,
       ),
     );
   }

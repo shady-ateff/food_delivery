@@ -4,15 +4,8 @@ import 'package:food_delivery/widgets/menu_widget.dart';
 import 'package:food_delivery/widgets/offers_banner.dart';
 
 // HomePage widget
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List<Color> color = [Colors.black45];
+class HomePage extends StatelessWidget {
+   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

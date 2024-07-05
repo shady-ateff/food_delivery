@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
+import 'package:food_delivery/widgets/favorite_icon_button.dart';
 
 // MenuWidget is a StatefulWidget that displays a menu item
 class MenuWidget extends StatefulWidget {
@@ -60,22 +61,9 @@ class _MenuWidgetState extends State<MenuWidget> {
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.all(screenSize.width * 0.005),
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  widget.menuItem.isFavorite = !widget.menuItem.isFavorite!;
-                });
-              },
-              icon: Icon(
-                //size: screenSize.width * 0.053,
-                widget.menuItem.isFavorite!
-                    ? Icons.favorite
-                    : Icons.favorite_border,
-                color: Theme.of(context).primaryColor,
-              ),
+            child: FavoriteIconButton(menuItem: widget.menuItem,)
             ),
           ),
-        ),
       ],
     );
   }

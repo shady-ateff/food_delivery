@@ -10,13 +10,32 @@ class FavoriteItemsWidget extends StatefulWidget {
 
   @override
   State<FavoriteItemsWidget> createState() => _FavoriteItemsWidgetState();
+
 }
 
 // Define the _FavoriteItemsWidgetState class
 class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
+  
+  @override
+  void initState() {
+    super.initState();
+    print("initState favorite item widget");
+  }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+      print("didChangeDependencies favorite item widget");
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print("dispose favorite item widget");
+  }
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    print("build favorite item widget");
     // Return a Card widget with a rounded rectangle shape and elevation
     return LayoutBuilder(builder: (context, constraints) {
       return Card(
