@@ -32,9 +32,11 @@ class _OffersBannerState extends State<OffersBanner> {
     });
   }
 
+
   @override
   void dispose() {
-    timer?.cancel();
+    _pageController.dispose(); // Don't forget to dispose the controller
+    timer!.cancel(); // Cancel the timer
     super.dispose();
   }
 

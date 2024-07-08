@@ -4,11 +4,28 @@ import 'package:food_delivery/widgets/menu_widget.dart';
 import 'package:food_delivery/widgets/offers_banner.dart';
 
 // HomePage widget
-class HomePage extends StatelessWidget {
-   const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("home page initState");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    debugPrint("home page disposed");
+  }
+  @override
   Widget build(BuildContext context) {
+    debugPrint("home page Builded");
     // Get the screen size
     Size screenSize = MediaQuery.of(context).size;
 
@@ -40,8 +57,8 @@ class HomePage extends StatelessWidget {
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: (screenSize.width / 350).ceil(),
-              mainAxisSpacing: screenSize.height* 0.01,
-              crossAxisSpacing: screenSize.width* 0.01,
+              mainAxisSpacing: screenSize.height * 0.01,
+              crossAxisSpacing: screenSize.width * 0.01,
             ),
           ),
         ),

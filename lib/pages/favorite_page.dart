@@ -19,6 +19,7 @@ class FavoritePageState extends State<FavoritePage> {
   }
   @override
   Widget build(BuildContext context) {
+    debugPrint("Favorite Page Built");
     // Get the screen size
     Size screenSize = MediaQuery.of(context).size;
 
