@@ -12,10 +12,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Color> color = [Colors.black45];
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("home page initState");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    debugPrint("home page disposed");
+  }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("home page Builded");
     // Get the screen size
     Size screenSize = MediaQuery.of(context).size;
 
@@ -47,8 +58,8 @@ class _HomePageState extends State<HomePage> {
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: (screenSize.width / 350).ceil(),
-              mainAxisSpacing: screenSize.height* 0.01,
-              crossAxisSpacing: screenSize.width* 0.01,
+              mainAxisSpacing: screenSize.height * 0.01,
+              crossAxisSpacing: screenSize.width * 0.01,
             ),
           ),
         ),

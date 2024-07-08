@@ -6,63 +6,102 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    bool isLandscape = screenSize.width > screenSize.height;
     return SingleChildScrollView(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        SizedBox(
-          height: screenSize.height * 0.06,
-        ),
-        CircleAvatar(
-          radius: screenSize.width < 300 ? screenSize.width * 0.3 : 120,
-          backgroundImage: const AssetImage('assets/images/profile.jpg'),
-        ),
-        SizedBox(
-          height: screenSize.height * 0.03,
-        ),
-        Text('Shady Atef', style: Theme.of(context).textTheme.headlineMedium),
-        SizedBox(
-          height: screenSize.height * 0.03,
-        ),
-        GridView(
-            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: (screenSize.width/300).ceil(),
-              childAspectRatio: 3.0,
-              mainAxisSpacing: 10,
+      child: Container(
+        //constraints: BoxConstraints(maxWidth:screenSize.width),
+        child: Flex(
+          direction: isLandscape ? Axis.horizontal : Axis.vertical,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                  maxWidth:
+                      isLandscape ? screenSize.width * 0.4 : screenSize.width),
+              child: LayoutBuilder(builder: (context, constrainrs) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: screenSize.height * 0.06,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        radius: constrainrs.maxWidth < 220
+                            ? constrainrs.maxWidth * 0.4
+                            : 120,
+                        backgroundImage:
+                            const AssetImage('assets/images/profile.jpg'),
+                      ),
+                    ),
+                    // SizedBox(
+                    //   height: screenSize.height * 0.03,
+                    // ),
+                    Text('Shady Atef',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    // SizedBox(
+                    //   height: screenSize.height * 0.03,
+                    // ),
+                    Flex(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        direction: constrainrs.maxWidth > 300
+                            ? Axis.horizontal
+                            : Axis.vertical,
+                        children: [
+                          profileInfoItem(context, 50, "Orders"),
+                          profileInfoItem(context, 10, "Offers"),
+                        ]),
+                    // SizedBox(
+                    //   height: screenSize.height * 0.03,
+                    // ),
+                  ],
+                );
+              }),
             ),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              profileInfoItem(context, 50, "Orders"),
-              profileInfoItem(context, 10, "Offers"),
-              
-            ]),
-        SizedBox(
-          height: screenSize.height * 0.03,
+            Container(
+              constraints: BoxConstraints(
+                  maxWidth:
+                      isLandscape ? screenSize.width * 0.4 : screenSize.width),
+              child: Column(
+                children: [
+                  listOfInfoItem(context, "Past Orders", Icons.note_add_rounded,
+                      Icons.arrow_forward_ios_rounded),
+                  const Divider(),
+                  listOfInfoItem(context, "Location", Icons.location_on_rounded,
+                      Icons.edit_rounded),
+                  const Divider(),
+                ],
+              ),
+            ),
+          ],
         ),
-        listOfInfoItem(context, "Past Orders", Icons.note_add_rounded,
-            Icons.arrow_forward_ios_rounded),
-        const Divider(),
-        listOfInfoItem(
-            context, "Location", Icons.location_on_rounded, Icons.edit_rounded),
-        const Divider(),
-      ]),
+      ),
     );
   }
 
   Widget listOfInfoItem(BuildContext context, String title, IconData leadingIco,
       IconData trailingIco,
       {String? subtitleText}) {
-    return ListTile(
-      leading: Icon(
-        leadingIco,
-      ),
-      title: Text(title),
-      trailing: Icon(
-        trailingIco,
-        size: MediaQuery.of(context).size.width * 0.02,
-      ),
-      subtitle: subtitleText != null ? Text(subtitleText) : null,
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      return ListTile(
+        leading: Icon(
+          leadingIco,
+          size:constraints.maxWidth<500? constraints.maxWidth * 0.06 : constraints.maxWidth * 0.04,
+        ),
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            
+                fontSize:constraints.maxWidth<200? constraints.maxWidth * 0.06 : constraints.maxWidth * 0.043,
+              ),
+        ),
+        trailing: Icon(
+          trailingIco,
+          size:constraints.maxWidth<500? constraints.maxWidth * 0.05 : constraints.maxWidth * 0.035,
+        ),
+        subtitle: subtitleText != null ? Text(subtitleText) : null,
+      );
+    });
   }
 
   Widget profileInfoItem(
@@ -72,21 +111,23 @@ class ProfilePage extends StatelessWidget {
       return Column(mainAxisSize: MainAxisSize.min, children: [
         Text("$itemNumber",
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.bold,
-                fontSize:constraints.maxWidth * 0.1)),
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                  // fontSize: constraints.maxWidth * 0.1
+                )),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.note_alt,
               color: Theme.of(context).primaryColor,
-              size: constraints.maxWidth * 0.1,
+              //size: constraints.maxWidth * 0.1,
             ),
             Text(itemName,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: constraints.maxWidth * 0.08)),
+                      fontWeight: FontWeight.w400,
+                      // fontSize: constraints.maxWidth * 0.08
+                    )),
           ],
         ),
       ]);

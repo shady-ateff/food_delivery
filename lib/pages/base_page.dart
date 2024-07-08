@@ -10,11 +10,27 @@ class BasePage extends StatefulWidget {
   _BasePageState createState() => _BasePageState();
 }
 
-class _BasePageState extends State<BasePage> {
+class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
   int _currentPage = 0;
   final PageController _homePageController = PageController();
 
- 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this); //
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this); //
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    debugPrint("$state");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,15 +65,11 @@ class _BasePageState extends State<BasePage> {
           ],
           currentIndex: _currentPage,
           onTap: (index) {
-            setState(() {
-              _currentPage = index;
-              _homePageController.animateToPage(
-                _currentPage,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.ease,
-              );
-              debugPrint("page  $_currentPage");
-            });
+            _homePageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.ease,
+            );
           },
           backgroundColor: Theme.of(context).primaryColor,
           selectedItemColor: Theme.of(context).scaffoldBackgroundColor,

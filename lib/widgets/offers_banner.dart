@@ -18,7 +18,6 @@ class _OffersBannerState extends State<OffersBanner> {
   @override
   void initState() {
     super.initState();
-    // Create a timer to animate the PageView every second
     timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       // Update the offerIndex and animate to the next page
       offerIndex = (offerIndex + 1) % offers.length;
@@ -28,6 +27,13 @@ class _OffersBannerState extends State<OffersBanner> {
         curve: Curves.easeIn,
       );
     });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose(); // Don't forget to dispose the controller
+    timer!.cancel(); // Cancel the timer
+    super.dispose();
   }
 
   @override
