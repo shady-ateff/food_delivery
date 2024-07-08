@@ -22,7 +22,7 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this); //
+    WidgetsBinding.instance.removeObserver(this); //removing the system state listener
   }
 
   @override
