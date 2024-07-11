@@ -7,7 +7,6 @@ class MenuWidget extends StatelessWidget {
   // The menu item to be displayed
   final MenuItem menuItem;
 
-
   // Constructor for MenuWidget
   const MenuWidget({super.key, required this.menuItem});
 
@@ -29,8 +28,10 @@ class MenuWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // Display the menu item image
-                Image.asset(
-                  menuItem.location,
+                Image(
+                  image: menuItem.location.startsWith("http")
+                      ? NetworkImage(menuItem.location)
+                      : AssetImage(menuItem.location),
                   width: constraints.maxWidth * 0.55,
                   fit: BoxFit.cover,
                 ),
@@ -57,9 +58,10 @@ class MenuWidget extends StatelessWidget {
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: EdgeInsets.all(screenSize.width * 0.005),
-            child: FavoriteIconButton(menuItem: menuItem,)
-          ),
+              padding: EdgeInsets.all(screenSize.width * 0.005),
+              child: FavoriteIconButton(
+                menuItem: menuItem,
+              )),
         ),
       ],
     );

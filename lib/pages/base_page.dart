@@ -19,10 +19,12 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this); //the system state listener
   }
+
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this); //removing the system state listener
+    WidgetsBinding.instance
+        .removeObserver(this); //removing the system state listener
   }
 
   @override
@@ -51,15 +53,13 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
         onPageChanged: (index) {
           setState(() {
             _currentPage = index;
-            
             debugPrint("onPageChanged");
           });
         },
-        // ignore: prefer_const_literals_to_create_immutables
-        children: [
+        children:[
           HomePage(),
           FavoritePage(),
-          const ProfilePage(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: ClipRRect(
@@ -74,11 +74,12 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
           ],
           currentIndex: _currentPage,
           onTap: (index) {
-            _homePageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            );
+            // _homePageController.animateToPage(
+            //   index,
+            //   duration: const Duration(milliseconds: 300),
+            //   curve: Curves.ease,
+            // );
+            _homePageController.jumpToPage(index);
           },
           backgroundColor: Theme.of(context).primaryColor,
           selectedItemColor: Theme.of(context).scaffoldBackgroundColor,

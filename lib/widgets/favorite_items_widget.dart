@@ -10,29 +10,28 @@ class FavoriteItemsWidget extends StatefulWidget {
 
   @override
   State<FavoriteItemsWidget> createState() => _FavoriteItemsWidgetState();
-
 }
 
 // Define the _FavoriteItemsWidgetState class
 class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
-  
   @override
   void initState() {
     super.initState();
     print("initState favorite item widget");
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-      print("didChangeDependencies favorite item widget");
+    print("didChangeDependencies favorite item widget");
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     print("dispose favorite item widget");
   }
+
   @override
   Widget build(BuildContext context) {
     print("build favorite item widget");
@@ -46,10 +45,12 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
             SizedBox(width: constraints.maxWidth * 0.03),
 
             // Display the menu item image
-            Image.asset(
-              widget.menuItem.location,
+            Image(
+              image: widget.menuItem.location.startsWith("http")
+                  ? NetworkImage(widget.menuItem.location)
+                  : AssetImage(widget.menuItem.location),
               fit: BoxFit.cover,
-              height:  constraints.maxWidth * 0.15,
+              height: constraints.maxWidth * 0.15,
             ),
 
             // Display the menu item details
@@ -62,9 +63,8 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
                   Text(
                     widget.menuItem.name,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: constraints.maxWidth * 0.04
-                        ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: constraints.maxWidth * 0.04),
                   ),
 
                   // Display the menu item price
@@ -73,14 +73,14 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
-                        fontSize:  constraints.maxWidth * 0.04),
+                        fontSize: constraints.maxWidth * 0.04),
                   ),
                 ],
               ),
             ),
 
             // Add a small spacer to the right
-            SizedBox(width:  constraints.maxWidth * 0.03),
+            SizedBox(width: constraints.maxWidth * 0.03),
 
             // Display a favorite button
             IconButton(
@@ -92,7 +92,7 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
                 });
               },
               icon: Icon(
-                size:  constraints.maxWidth * 0.04,
+                size: constraints.maxWidth * 0.04,
                 widget.menuItem.isFavorite!
                     ? Icons.favorite
                     : Icons
@@ -102,7 +102,7 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
             ),
 
             // Add a small spacer to the right
-            SizedBox(width:  constraints.maxWidth * 0.03),
+            SizedBox(width: constraints.maxWidth * 0.03),
           ],
         ),
       );

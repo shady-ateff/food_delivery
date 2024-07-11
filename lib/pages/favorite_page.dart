@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
+import 'package:food_delivery/pages/menu_item_details_pages.dart';
 import 'package:food_delivery/widgets/favorite_items_widget.dart';
 
 // Define the FavoritePage widget
@@ -17,6 +18,7 @@ class FavoritePageState extends State<FavoritePage> {
     super.dispose();
     debugPrint("Favorite page disposed");
   }
+
   @override
   Widget build(BuildContext context) {
     debugPrint("Favorite Page Built");
@@ -25,7 +27,6 @@ class FavoritePageState extends State<FavoritePage> {
 
     // Filter the menu items to get the favorite ones
     List favoriteList = menu.where((menuItem) => menuItem.isFavorite!).toList();
-    debugPrint(favoriteList.toString());
 
     // Check if there are any favorite items
     if (favoriteList.isNotEmpty) {
@@ -42,13 +43,30 @@ class FavoritePageState extends State<FavoritePage> {
         itemCount: favoriteList.length,
         itemBuilder: (context, index) {
           // Return a FavoriteItemsWidget for each favorite item
-          return FavoriteItemsWidget(
-              menuItem: favoriteList.elementAt(index),
-              onFavoriteTapped: (menuItem) {
-                setState(() {
-                  favoriteList.remove(menuItem);
-                });
-              });
+          return InkWell(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (context) => MenuItemDetailsPages(
+                          menuItem: favoriteList.elementAt(index),
+                        ),
+                      ),
+                    )
+                    .then((value) => setState(() {
+                          debugPrint("home page setState");
+                        }));
+              },
+              child: FavoriteItemsWidget(
+                  menuItem: favoriteList.elementAt(index),
+                  onFavoriteTapped: (menuItem) {
+                    setState(() {
+                      favoriteList.remove(menuItem);
+                    });
+                  }),
+            ),
+          );
         },
       );
     } else {
@@ -61,7 +79,7 @@ class FavoritePageState extends State<FavoritePage> {
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
-                fontSize: screenSize.width*0.05),
+                fontSize: screenSize.width * 0.05),
           ),
           SizedBox(
             height: screenSize.height * 0.01,
@@ -76,4 +94,3 @@ class FavoritePageState extends State<FavoritePage> {
     }
   }
 }
-

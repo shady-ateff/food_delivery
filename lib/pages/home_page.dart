@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
+import 'package:food_delivery/pages/menu_item_details_pages.dart';
 import 'package:food_delivery/widgets/menu_widget.dart';
 import 'package:food_delivery/widgets/offers_banner.dart';
+import 'package:flutter/cupertino.dart';
 
 // HomePage widget
 class HomePage extends StatefulWidget {
@@ -23,6 +25,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     debugPrint("home page disposed");
   }
+
   @override
   Widget build(BuildContext context) {
     debugPrint("home page Builded");
@@ -51,8 +54,26 @@ class _HomePageState extends State<HomePage> {
             shrinkWrap: true,
             itemCount: menu.length,
             itemBuilder: (context, index) {
-              return MenuWidget(
-                menuItem: menu[index],
+              return InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MenuItemDetailsPages(
+                        menuItem: menu[index],
+                      ),
+                    ),
+                  ).then(
+                    (value) => setState(() {
+                      debugPrint("home page setState");
+                    })
+                  );
+
+                  // == Navigator.push(context,MaterialPageRoute(
+                  //     builder: (context) => const MenuItemDetailsPages()));
+                },
+                child: MenuWidget(
+                  menuItem: menu[index],
+                ),
               );
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
