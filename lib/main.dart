@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/pages/base_page.dart';
 
 void main() {
-  //WidgetsFlutterBinding.ensureInitialized(); //To ensure that preRunApp Commands excuted
+  //WidgetsFlutterBinding.ensureInitialized(); //+To ensure that preRunApp Commands excuted
   // SystemChrome.setPreferredOrientations(
   //   [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]
   // ); //Turn off orientation
@@ -18,6 +18,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Talabak',
       theme: ThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor:  Color.fromARGB(255, 208, 28, 37),
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white60,
+        ),
         //colorSchemeSeed:  const Color.fromARGB(255, 208, 28, 37),
         primaryColor: const Color.fromARGB(255, 208, 28, 37),
         secondaryHeaderColor: const Color.fromARGB(255, 237, 163, 57),

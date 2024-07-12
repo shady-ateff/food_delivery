@@ -37,7 +37,8 @@ class _FavoriteItemsWidgetState extends State<FavoriteItemsWidget> {
     print("build favorite item widget");
     // Return a Card widget with a rounded rectangle shape and elevation
     return LayoutBuilder(builder: (context, constraints) {
-      return Card(
+      return
+      Card(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
