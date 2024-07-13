@@ -1,14 +1,8 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/widgets/available_sizes_radioButton.dart';
 import 'package:food_delivery/widgets/bottom_action_bar.dart';
-//import 'package:food_delivery/widgets/available_sizes_widget.dart';
-import 'package:food_delivery/widgets/favorite_icon_button.dart';
-import 'package:food_delivery/widgets/menu_item_details_banner.dart';
 import 'package:food_delivery/widgets/menu_item_title.dart';
-//import 'package:flutter/cupertino.dart';
-
 class MenuItemDetailsPages extends StatefulWidget {
   final MenuItem menuItem;
 
