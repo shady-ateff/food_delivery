@@ -3,7 +3,6 @@ import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/pages/menu_item_details_pages.dart';
 import 'package:food_delivery/widgets/menu_widget.dart';
 import 'package:food_delivery/widgets/offers_banner.dart';
-import 'package:flutter/cupertino.dart';
 
 // HomePage widget
 class HomePage extends StatefulWidget {

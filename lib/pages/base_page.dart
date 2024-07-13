@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/pages/cart_page.dart';
 import 'package:food_delivery/pages/favorite_page.dart';
 import 'package:food_delivery/pages/home_page.dart';
 import 'package:food_delivery/pages/profile_page.dart';
@@ -56,35 +57,35 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
             debugPrint("onPageChanged");
           });
         },
-        children:[
+        children: [
           HomePage(),
           FavoritePage(),
-          ProfilePage(),
+          const ProfilePage(),
+          CartPage(),
         ],
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-        child: BottomNavigationBar(
-          elevation: 10,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite), label: 'Favorite'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-          currentIndex: _currentPage,
-          onTap: (index) {
-            // _homePageController.animateToPage(
-            //   index,
-            //   duration: const Duration(milliseconds: 300),
-            //   curve: Curves.ease,
-            // );
-            _homePageController.jumpToPage(index);
-          },
-          backgroundColor: Theme.of(context).primaryColor,
-          selectedItemColor: Theme.of(context).scaffoldBackgroundColor,
-          unselectedItemColor: Colors.white38,
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        // fixedColor:Theme.of(context).primaryColor ,
+        elevation: 10,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorite'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+        ],
+        currentIndex: _currentPage,
+        onTap: (index) {
+          // _homePageController.animateToPage(
+          //   index,
+          //   duration: const Duration(milliseconds: 300),
+          //   curve: Curves.ease,
+          // );
+          _homePageController.jumpToPage(index);
+        },
+        // backgroundColor: Theme.of(context).primaryColor,
+        // selectedItemColor: Theme.of(context).scaffoldBackgroundColor,
+        // unselectedItemColor: Colors.white38,
       ),
     );
   }

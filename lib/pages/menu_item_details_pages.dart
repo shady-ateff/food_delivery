@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
+import 'package:food_delivery/pages/cart_page.dart';
 import 'package:food_delivery/widgets/available_sizes_radioButton.dart';
 import 'package:food_delivery/widgets/bottom_action_bar.dart';
 import 'package:food_delivery/widgets/menu_item_title.dart';
@@ -31,7 +32,12 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
             //stretch: true,
             actions: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const CartPage();
+                    }));
+                  },
                   icon: const Icon(
                     Icons.shopping_cart_rounded,
                   ))
@@ -107,7 +113,6 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
                 ]),
               )),
         ]),
-        
         bottomNavigationBar: BottomActionBar(
           menuItem: widget.menuItem,
           selectedSize: _selectedSize,
