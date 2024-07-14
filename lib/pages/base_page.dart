@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/pages/cart_page.dart';
 import 'package:food_delivery/pages/favorite_page.dart';
 import 'package:food_delivery/pages/home_page.dart';
@@ -68,11 +70,38 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
         type: BottomNavigationBarType.fixed,
         // fixedColor:Theme.of(context).primaryColor ,
         elevation: 10,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorite'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+        items: [
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), label: 'Favorite'),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(
+              icon: Stack(
+                  fit: StackFit.passthrough,
+                  alignment: Alignment.topRight,
+                  children: [
+                    const Icon(Icons.shopping_cart),
+                    Cart.items.isNotEmpty
+                        ? Container(
+                            width: 10,
+                            height: 14,
+                            decoration: const BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            child: Column(
+                              children: [
+                                Text(
+                                  "${Cart.items.length}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 9, color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          )
+                        : const SizedBox(),
+                  ]),
+              label: 'Cart'),
         ],
         currentIndex: _currentPage,
         onTap: (index) {

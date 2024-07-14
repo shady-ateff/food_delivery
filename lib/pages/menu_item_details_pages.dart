@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/pages/cart_page.dart';
 import 'package:food_delivery/widgets/available_sizes_radioButton.dart';
 import 'package:food_delivery/widgets/bottom_action_bar.dart';
 import 'package:food_delivery/widgets/menu_item_title.dart';
+
 class MenuItemDetailsPages extends StatefulWidget {
   final MenuItem menuItem;
 
@@ -29,24 +31,44 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
             automaticallyImplyLeading: true,
             forceElevated: true,
             pinned: true,
-            //stretch: true,
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const CartPage();
-                    }));
-                  },
-                  icon: const Icon(
-                    Icons.shopping_cart_rounded,
-                  ))
-            ],
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             shadowColor: Theme.of(context).primaryColor,
             elevation: 1,
             expandedHeight: MediaQuery.of(context).size.height * 0.450,
+            //stretch: true,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const CartPage();
+                  }));
+                },
+                icon: Stack(
+                    fit: StackFit.passthrough,
+                    alignment: Alignment.topRight,
+                    children: [
+                      const Icon(Icons.shopping_cart),
+                      Container(
+                        width: 10,
+                        height: 14,
+                        decoration: const BoxDecoration(
+                            color: Colors.red, shape: BoxShape.circle),
+                        child:  Column(
+                          children: [
+                            Text(
+                              "${Cart.items.length}",
+                              textAlign: TextAlign.center,
+                              style:
+                                  const TextStyle(fontSize: 9, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )
+                    ]),
+              )
+            ],
+
             flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 expandedTitleScale: 1.12,

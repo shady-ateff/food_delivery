@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/widgets/item_counter_widget.dart';
 
 class CartItemWidget extends StatelessWidget {
   final menuItem;
@@ -30,15 +31,15 @@ class CartItemWidget extends StatelessWidget {
               // Display the menu item details
               Expanded(
                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Display the menu item name
                     Text(
                       menuItem.name,
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          // fontSize: constraints.maxWidth * 0.04
+                            fontWeight: FontWeight.bold,
+                            // fontSize: constraints.maxWidth * 0.04
                           ),
                     ),
 
@@ -62,32 +63,36 @@ class CartItemWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                        Column(
                           children: [
-                            Text(
-                              "${menuItem.price}\$ ",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontWeight: FontWeight.bold,
-                                      // fontSize: constraints.maxWidth * 0.04
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "${menuItem.price}\$ ",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                        // fontSize: constraints.maxWidth * 0.04
                                       ),
+                                ),
+                                Text(
+                                  "x1",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
+                                      .copyWith(
+                                          // color: Theme.of(context).primaryColor,
+                                          // fontWeight: FontWeight.bold,
+                                          // fontSize: constraints.maxWidth * 0.04
+                                          ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "x1",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall!
-                                  .copyWith(
-                                      // color: Theme.of(context).primaryColor,
-                                      // fontWeight: FontWeight.bold,
-                                      // fontSize: constraints.maxWidth * 0.04
-                                      ),
-                            ),
-
+                           
                           ],
                         ),
                       ],

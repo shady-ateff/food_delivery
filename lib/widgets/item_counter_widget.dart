@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ItemCounterWidget extends StatefulWidget {
-  const ItemCounterWidget({super.key,required this.onCountChange});
+  const ItemCounterWidget({super.key, required this.onCountChange});
   final void Function(int?) onCountChange;
 
   @override
@@ -20,40 +20,49 @@ class _ItemCounterWidgetState extends State<ItemCounterWidget> {
           borderRadius: BorderRadius.circular(20),
           color: Colors.white70,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ElevatedButton(
-              onPressed: _counter > 1
-                  ? () {
-                      setState(() {
-                        _counter--;
-                        widget.onCountChange(_counter);
-                      });
-                    }
-                  : null,
-              child: const Icon(Icons.remove_rounded),
-            ),
-            Expanded(
-                child: Text(
-              "$_counter",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall!
-                  .copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
-            )),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _counter++;
-                  widget.onCountChange(_counter);
-                });
-              },
-              child: const Icon(Icons.add_rounded),
-            )
-          ],
-        ),
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: constraints.maxWidth * 0.2,
+                child: ElevatedButton(
+                  onPressed: _counter > 1
+                      ? () {
+                          setState(() {
+                            _counter--;
+                            widget.onCountChange(_counter);
+                          });
+                        }
+                      : null,
+                  child: const Icon(Icons.remove_rounded),
+                ),
+              ),
+              Expanded(
+                  child: Text(
+                "$_counter",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    fontSize: constraints.maxWidth * 0.07
+                    ),
+              )),
+              SizedBox(
+                width: constraints.maxWidth * 0.2,
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _counter++;
+                      widget.onCountChange(_counter);
+                    });
+                  },
+                  child: const Icon(Icons.add_rounded),
+                ),
+              )
+            ],
+          );
+        }),
       ),
     );
   }

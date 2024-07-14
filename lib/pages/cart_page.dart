@@ -14,41 +14,67 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
-          child: ListView(
-            children: [
-              Text(
-                "Cart (1 item)",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const SizedBox(
-                height: 3,
-              ),
-              Card(
-                elevation: 0,
-                color: Colors.white60,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "Deliver to Your Location",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    const Icon(Icons.pin_drop)
-                  ],
+      body: CustomScrollView(
+        slivers: [
+        SliverAppBar(
+          // collapsedHeight: 120,
+            automaticallyImplyLeading: true,
+            forceElevated: true,
+            pinned: true,
+            // centerTitle: true,
+            // backgroundColor: Colors.white,
+            // foregroundColor: Colors.black,
+            // shadowColor: Theme.of(context).primaryColor,
+            elevation: 1,
+            expandedHeight: MediaQuery.of(context).size.height * 0.150,
+            //stretch: true,
+            flexibleSpace: FlexibleSpaceBar(
+              collapseMode: CollapseMode.pin,
+              // centerTitle: true,
+              title: Text(
+                  "Cart (1 item)",
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              CartItemWidget(menuItem: menu.elementAtOrNull(0)),
-              CartItemWidget(menuItem: menu.elementAtOrNull(1)),
-              CartItemWidget(menuItem: menu.elementAtOrNull(2)),
-            ],
-          ),
+            ),
         ),
-      ),
+        SliverPadding(
+          padding: const EdgeInsets.all(8.0),
+          sliver: SliverList(
+              delegate: SliverChildListDelegate([
+            Column(
+              children: [
+                
+                const SizedBox(
+                  height: 3,
+                ),
+                Card(
+                  elevation: 0,
+                  color: Colors.white60,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        "Deliver to Your Location",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                      const Icon(Icons.pin_drop)
+                    ],
+                  ),
+                ),
+                CartItemWidget(menuItem: menu.elementAtOrNull(0)),
+                CartItemWidget(menuItem: menu.elementAtOrNull(1)),
+                CartItemWidget(menuItem: menu.elementAtOrNull(2)),
+                const SizedBox(height: 500,)
+              ],
+            ),
+          ])),
+        )
+      
+      ]),
       bottomNavigationBar: Card(
         color: Colors.white,
         //height: MediaQuery.sizeOf(context).height * 0.12,
@@ -66,8 +92,8 @@ class _CartPageState extends State<CartPage> {
                   child: ElevatedButton(
                       onPressed: () {},
                       child: Padding(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 5),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -85,7 +111,6 @@ class _CartPageState extends State<CartPage> {
               ]),
         ),
       ),
-    
     );
   }
 }

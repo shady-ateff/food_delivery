@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/widgets/bottom_order_bar.dart';
 import 'package:food_delivery/widgets/item_counter_widget.dart';
@@ -16,8 +17,8 @@ class _BottomActionBarState extends State<BottomActionBar> {
   int _count = 1;
   @override
   Widget build(BuildContext context) {
-    double price = widget.menuItem.sizePrices[
-                  widget.menuItem.availableSizes[widget.selectedSize]]!;
+    double price = widget.menuItem
+        .sizePrices[widget.menuItem.availableSizes[widget.selectedSize]]!;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -35,6 +36,9 @@ class _BottomActionBarState extends State<BottomActionBar> {
               height: 5,
             ),
             BottomOrderBar(
+              onButtonPressed: (){
+                Cart.items.add(widget.menuItem);
+              },
               price: price * _count,
             )
           ],
