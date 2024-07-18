@@ -55,17 +55,21 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => MenuItemDetailsPages(
-                        menuItem: menu[index],
-                      ),
-                    ),
-                  ).then(
-                    (value) => setState(() {
-                      debugPrint("home page setState");
-                    })
-                  );
+                  Navigator.of(context)
+                      .pushNamed(MenuItemDetailsPages.routeName, arguments: menu[index])
+                      .then((value) => setState(() {
+                            debugPrint("home page setState");
+                          }));
+
+                  /* in case you need to pass more than one arg you can pass it as map<string , dynamic> and access it as map (map['arg name'])
+                  but the better way "clean arch" is creating a model "class" that contain all args you need to send instead */
+                  // Navigator.of(context).pushNamed('/menu-item-details',
+                  //     arguments: {
+                  //       'item': menu[index],
+
+                  //     }).then((value) => setState(() {
+                  //       debugPrint("home page setState");
+                  //     }));
 
                   // == Navigator.push(context,MaterialPageRoute(
                   //     builder: (context) => const MenuItemDetailsPages()));

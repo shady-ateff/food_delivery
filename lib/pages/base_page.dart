@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/pages/cart_page.dart';
 import 'package:food_delivery/pages/favorite_page.dart';
@@ -10,6 +10,7 @@ class BasePage extends StatefulWidget {
   const BasePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BasePageState createState() => _BasePageState();
 }
 
@@ -59,30 +60,43 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
             debugPrint("onPageChanged");
           });
         },
-        children: [
+        children:  [
           HomePage(),
           FavoritePage(),
           const ProfilePage(),
-          CartPage(),
+          const CartPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        unselectedIconTheme: const IconThemeData(
+            // color: Colors.grey,
+            // fill: 0.1
+            //grade: 10
+            size: 20),
         type: BottomNavigationBarType.fixed,
         // fixedColor:Theme.of(context).primaryColor ,
         elevation: 10,
         items: [
-          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           const BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Favorite'),
+              activeIcon: Icon(Ionicons.md_home),
+              icon: Icon(Ionicons.md_home_outline),
+              label: 'Home'),
           const BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: 'Profile'),
+              activeIcon: Icon(Ionicons.heart),
+              icon: Icon(Icons.favorite_outline_rounded),
+              label: 'Favorite'),
+          const BottomNavigationBarItem(
+              activeIcon: Icon(Ionicons.person),
+              icon: Icon(Ionicons.person_outline),
+              label: 'Profile'),
           BottomNavigationBarItem(
+            activeIcon: const Icon(Ionicons.cart),
               icon: Stack(
                   fit: StackFit.passthrough,
                   alignment: Alignment.topRight,
                   children: [
-                    const Icon(Icons.shopping_cart),
-                    Cart.items.isNotEmpty
+                    const Icon(Ionicons.cart_outline),
+                    Cart.instance.cartList().isNotEmpty
                         ? Container(
                             width: 10,
                             height: 14,
@@ -91,7 +105,7 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
                             child: Column(
                               children: [
                                 Text(
-                                  "${Cart.items.length}",
+                                  "${Cart.instance.cartList().length}",
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                       fontSize: 9, color: Colors.white),
@@ -112,9 +126,6 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
           // );
           _homePageController.jumpToPage(index);
         },
-        // backgroundColor: Theme.of(context).primaryColor,
-        // selectedItemColor: Theme.of(context).scaffoldBackgroundColor,
-        // unselectedItemColor: Colors.white38,
       ),
     );
   }

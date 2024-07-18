@@ -7,9 +7,11 @@ import 'package:food_delivery/widgets/bottom_action_bar.dart';
 import 'package:food_delivery/widgets/menu_item_title.dart';
 
 class MenuItemDetailsPages extends StatefulWidget {
-  final MenuItem menuItem;
+  static const String routeName = '/menu-item-details';
+  //final MenuItem menuItem;
 
-  const MenuItemDetailsPages({super.key, required this.menuItem});
+  const MenuItemDetailsPages({super.key});
+  
 
   @override
   State<MenuItemDetailsPages> createState() => _MenuItemDetailsPagesState();
@@ -19,6 +21,7 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
   int _selectedSize = 0;
   @override
   Widget build(BuildContext context) {
+    MenuItem menuItem = ModalRoute.of(context)!.settings.arguments as MenuItem; //casting "as MenuItem"
     debugPrint("Item Page Built");
     //final screenSize = MediaQuery.of(context).size;
 
@@ -50,17 +53,17 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
                     children: [
                       const Icon(Icons.shopping_cart),
                       Container(
-                        width: 10,
+                        width: 15,
                         height: 14,
                         decoration: const BoxDecoration(
                             color: Colors.red, shape: BoxShape.circle),
-                        child:  Column(
+                        child: Column(
                           children: [
                             Text(
-                              "${Cart.items.length}",
+                              "${Cart.instance.items.length}",
                               textAlign: TextAlign.center,
-                              style:
-                                  const TextStyle(fontSize: 9, color: Colors.white),
+                              style: const TextStyle(
+                                  fontSize: 8, color: Colors.white),
                             ),
                           ],
                         ),
@@ -76,15 +79,15 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image(
-                      image: widget.menuItem.location.startsWith("http")
-                          ? NetworkImage(widget.menuItem.location)
-                          : AssetImage(widget.menuItem.location),
+                      image: menuItem.location.startsWith("http")
+                          ? NetworkImage(menuItem.location)
+                          : AssetImage(menuItem.location),
                       fit: BoxFit.fill,
                       height: MediaQuery.of(context).size.height * 0.37,
                     ),
                   ],
                 ),
-                title: MenuItemTitle(menuItem: widget.menuItem)),
+                title: MenuItemTitle(menuItem: menuItem)),
           ),
           SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -93,10 +96,10 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
                   Column(
                     children: [
                       AvailableSizesRadioButton(
-                        menuItem: widget.menuItem,
+                        menuItem: menuItem,
                         onSizeChanged: (size) {
                           debugPrint(
-                              "${widget.menuItem.availableSizes[size!]} on page");
+                              "${menuItem.availableSizes[size!]} on page");
                           setState(() {
                             _selectedSize = size;
                           });
@@ -113,10 +116,10 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             itemInfo(
-                                "Calories", widget.menuItem.calories, "Kj"),
+                                "Calories", menuItem.calories, "Kj"),
                             itemInfo("Preparation Time",
-                                widget.menuItem.preparationTime, "min"),
-                            itemInfo("Weight", widget.menuItem.weight, "gm"),
+                               menuItem.preparationTime, "min"),
+                            itemInfo("Weight", menuItem.weight, "gm"),
                           ]),
                       const SizedBox(
                         height: 10,
@@ -126,7 +129,7 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 0),
                         child: Text(
-                          widget.menuItem.description,
+                         menuItem.description,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
@@ -136,7 +139,13 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
               )),
         ]),
         bottomNavigationBar: BottomActionBar(
-          menuItem: widget.menuItem,
+
+          onAddedToCart: (){
+            setState(() {
+              
+            });
+          },
+          menuItem: menuItem,
           selectedSize: _selectedSize,
         ));
   }

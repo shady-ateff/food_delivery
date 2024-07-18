@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  font_awesome_flutter: ^10.6.0
+  flutter_vector_icons: ^2.0.0
+  provider: 
+  eva_icons_flutter:  # Check for the latest version
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

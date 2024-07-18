@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/widgets/item_counter_widget.dart';
+import 'package:food_delivery/models/cart_model.dart';
 
 class CartItemWidget extends StatelessWidget {
-  final menuItem;
-  const CartItemWidget({super.key, required this.menuItem});
+  final CartItem cartItem;
+  const CartItemWidget({super.key, required this.cartItem});
 
   @override
   Widget build(BuildContext context) {
-    Size _screenSize = MediaQuery.of(context).size;
+    final menuItem = cartItem.item;
+    final quantity = cartItem.quantity;
+    final selectedSize = cartItem.selectedSize;
+    Size screenSize = MediaQuery.of(context).size;
     return Card(
-      child: Container(
-        height: _screenSize.height * 0.15,
+      child: SizedBox(
+        height: screenSize.height * 0.15,
         child: LayoutBuilder(builder: (context, constraints) {
           return Row(
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -69,7 +72,7 @@ class CartItemWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "${menuItem.price}\$ ",
+                                  "${menuItem.sizePrices[menuItem.availableSizes[selectedSize]]}\$ ",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!
@@ -80,7 +83,7 @@ class CartItemWidget extends StatelessWidget {
                                       ),
                                 ),
                                 Text(
-                                  "x1",
+                                  "x$quantity",
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelSmall!
@@ -92,7 +95,6 @@ class CartItemWidget extends StatelessWidget {
                                 ),
                               ],
                             ),
-                           
                           ],
                         ),
                       ],

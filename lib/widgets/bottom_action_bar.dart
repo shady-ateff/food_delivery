@@ -7,8 +7,12 @@ import 'package:food_delivery/widgets/item_counter_widget.dart';
 class BottomActionBar extends StatefulWidget {
   final MenuItem menuItem;
   final int selectedSize;
+  final VoidCallback onAddedToCart;
   const BottomActionBar(
-      {super.key, required this.menuItem, required this.selectedSize});
+      {super.key,
+      required this.menuItem,
+      required this.selectedSize,
+      required this.onAddedToCart});
   @override
   _BottomActionBarState createState() => _BottomActionBarState();
 }
@@ -36,8 +40,13 @@ class _BottomActionBarState extends State<BottomActionBar> {
               height: 5,
             ),
             BottomOrderBar(
-              onButtonPressed: (){
-                Cart.items.add(widget.menuItem);
+              onButtonPressed: () {
+                Cart.instance.addItem(CartItem(
+                    selectedSize: widget.selectedSize,
+                    item: widget.menuItem,
+                    quantity: _count));
+                debugPrint("item button pressed");
+                widget.onAddedToCart();
               },
               price: price * _count,
             )

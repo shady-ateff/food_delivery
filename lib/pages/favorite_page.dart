@@ -47,12 +47,9 @@ class FavoritePageState extends State<FavoritePage> {
             child: InkWell(
               onTap: () {
                 Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (context) => MenuItemDetailsPages(
-                          menuItem: favoriteList.elementAt(index),
-                        ),
-                      ),
+                    .pushNamed(
+                      '/menu-item-details' ,
+                      arguments: favoriteList[index],
                     )
                     .then((value) => setState(() {
                           debugPrint("home page setState");

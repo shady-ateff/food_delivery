@@ -5,8 +5,9 @@ class BottomOrderBar extends StatefulWidget {
   //final MenuItem menuItem;
   //final int selectedSize;
   final double price;
-  final VoidCallback onButtonPressed ;
-  const BottomOrderBar({super.key, required this.price, required this.onButtonPressed});
+  final VoidCallback onButtonPressed;
+  const BottomOrderBar(
+      {super.key, required this.price, required this.onButtonPressed});
 
   @override
   _BottomOrderBarState createState() => _BottomOrderBarState();
@@ -28,7 +29,7 @@ class _BottomOrderBarState extends State<BottomOrderBar> {
         Expanded(
             child: ElevatedButton(
                 onPressed: () {
-                  widget.onButtonPressed;
+                  widget.onButtonPressed();
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/widgets/cart_item_widget.dart';
 import 'package:food_delivery/widgets/favorite_items_widget.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -11,34 +13,28 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  final cartList = Cart.instance.cartList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: CustomScrollView(slivers: [
         SliverAppBar(
           // collapsedHeight: 120,
-            automaticallyImplyLeading: true,
-            forceElevated: true,
-            pinned: true,
-            // centerTitle: true,
-            // backgroundColor: Colors.white,
-            // foregroundColor: Colors.black,
-            // shadowColor: Theme.of(context).primaryColor,
-            elevation: 1,
-            expandedHeight: MediaQuery.of(context).size.height * 0.150,
-            //stretch: true,
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.pin,
-              // centerTitle: true,
-              title: Text(
-                  "Cart (1 item)",
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+          automaticallyImplyLeading: true,
+          forceElevated: true,
+          pinned: true,
+          elevation: 1,
+          expandedHeight: MediaQuery.of(context).size.height * 0.150,
+          flexibleSpace: FlexibleSpaceBar(
+            collapseMode: CollapseMode.pin,
+            title: Text(
+              "Cart (1 item)",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
             ),
+          ),
         ),
         SliverPadding(
           padding: const EdgeInsets.all(8.0),
@@ -46,7 +42,6 @@ class _CartPageState extends State<CartPage> {
               delegate: SliverChildListDelegate([
             Column(
               children: [
-                
                 const SizedBox(
                   height: 3,
                 ),
@@ -65,15 +60,22 @@ class _CartPageState extends State<CartPage> {
                     ],
                   ),
                 ),
-                CartItemWidget(menuItem: menu.elementAtOrNull(0)),
-                CartItemWidget(menuItem: menu.elementAtOrNull(1)),
-                CartItemWidget(menuItem: menu.elementAtOrNull(2)),
-                const SizedBox(height: 500,)
+                Consumer<Cart>(builder: (context, cart, child) {
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: cart.items.length,
+                      itemBuilder: (context, index) {
+                        return CartItemWidget(cartItem: cart.items[index]);
+                      });
+                }),
+                const SizedBox(
+                  height: 500,
+                )
               ],
             ),
           ])),
         )
-      
       ]),
       bottomNavigationBar: Card(
         color: Colors.white,
