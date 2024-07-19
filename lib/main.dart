@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/cart_model.dart';
-import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/pages/base_page.dart';
 import 'package:food_delivery/pages/cart_page.dart';
 import 'package:food_delivery/pages/favorite_page.dart';
-import 'package:food_delivery/pages/home_page.dart';
 import 'package:food_delivery/pages/menu_item_details_pages.dart';
 import 'package:food_delivery/pages/profile_page.dart';
 import 'package:provider/provider.dart';
@@ -83,7 +81,9 @@ class MyApp extends StatelessWidget {
           '/profile': (context) => const ProfilePage(),
           MenuItemDetailsPages.routeName: (context) =>
               const MenuItemDetailsPages(),
-          '/cart': (context) => const CartPage(),
+          '/cart': (context) => CartPage(onShoppingButtonPressed: (){
+            Navigator.pushNamed(context, '/');
+          }),
         },
       ),
     );

@@ -14,24 +14,36 @@ class Cart extends ChangeNotifier {
   Cart._internal();
 
   List items = <CartItem>[];
+  double totalPrice = 0.0;
+  int itemCount = 0;
 
-  void addItem(CartItem item) {
+  void addItem(CartItem cartItem) {
     // items.add(item);
-    int inCart =items.lastIndexWhere((i)=> (i.item == item.item )&& (i.selectedSize==item.selectedSize));
+    final menuItem = cartItem.item;
+
+    double? itemPrice=menuItem.sizePrices[menuItem.availableSizes[cartItem.selectedSize]];
+    int inCart =items.lastIndexWhere((i)=> (i.item == cartItem.item )&& (i.selectedSize==cartItem.selectedSize));
     
     if(inCart != -1){
-      items.elementAt(inCart).quantity+=item.quantity;
+      items.elementAt(inCart).quantity+=cartItem.quantity;
     }
     else {
-      items.add(item);
+      items.add(cartItem);
     }
+    // totalPrice+=cartItem.item.sizePrices[cartItem.item.availableSizes[selectedSize]];
+    totalPrice+= (itemPrice!*cartItem.quantity);
+    itemCount+=cartItem.quantity;
 
     notifyListeners(); // notify listeners that the items list has changed
     debugPrint("$items");
   }
 
-  void removeItem(MenuItem item) {
-    items.remove(item);
+  void removeItem(CartItem cartItem) {
+        final menuItem = cartItem.item;
+        double? itemPrice=menuItem.sizePrices[menuItem.availableSizes[cartItem.selectedSize]];
+    items.remove(cartItem);
+    totalPrice-= (itemPrice!*cartItem.quantity);
+    itemCount-=cartItem.quantity;
     notifyListeners(); // notify listeners that the items list has changed
   }
 

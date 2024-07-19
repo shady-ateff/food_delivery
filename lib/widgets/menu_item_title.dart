@@ -12,7 +12,6 @@ class MenuItemTitle extends StatelessWidget {
       return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const SizedBox(height: 50,),
           Row(
             children: [
               SizedBox(

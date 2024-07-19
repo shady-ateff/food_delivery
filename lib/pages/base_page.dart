@@ -5,6 +5,7 @@ import 'package:food_delivery/pages/cart_page.dart';
 import 'package:food_delivery/pages/favorite_page.dart';
 import 'package:food_delivery/pages/home_page.dart';
 import 'package:food_delivery/pages/profile_page.dart';
+import 'package:food_delivery/widgets/cart_icon_red_circle.dart';
 
 class BasePage extends StatefulWidget {
   const BasePage({super.key});
@@ -39,6 +40,7 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final Cart _cartNotifier =Cart();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -49,7 +51,6 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
       // appBar: CupertinoNavigationBar( //for ios
       //   middle: Text("Talabak")
       // ),
-      drawer: Drawer(child: ListView()),
       body: PageView(
         allowImplicitScrolling: true,
         scrollDirection: Axis.horizontal,
@@ -60,11 +61,17 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
             debugPrint("onPageChanged");
           });
         },
-        children:  [
+        children: [
+          // ignore: prefer_const_constructors
           HomePage(),
+          // ignore: prefer_const_constructors
           FavoritePage(),
           const ProfilePage(),
-          const CartPage(),
+          CartPage(
+            onShoppingButtonPressed: () {
+              _homePageController.jumpToPage(0);
+            },
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -77,44 +84,24 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
         // fixedColor:Theme.of(context).primaryColor ,
         elevation: 10,
         items: [
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               activeIcon: Icon(Ionicons.md_home),
               icon: Icon(Ionicons.md_home_outline),
               label: 'Home'),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               activeIcon: Icon(Ionicons.heart),
               icon: Icon(Icons.favorite_outline_rounded),
               label: 'Favorite'),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               activeIcon: Icon(Ionicons.person),
               icon: Icon(Ionicons.person_outline),
               label: 'Profile'),
           BottomNavigationBarItem(
-            activeIcon: const Icon(Ionicons.cart),
-              icon: Stack(
-                  fit: StackFit.passthrough,
-                  alignment: Alignment.topRight,
-                  children: [
-                    const Icon(Ionicons.cart_outline),
-                    Cart.instance.cartList().isNotEmpty
-                        ? Container(
-                            width: 10,
-                            height: 14,
-                            decoration: const BoxDecoration(
-                                color: Colors.red, shape: BoxShape.circle),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "${Cart.instance.cartList().length}",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      fontSize: 9, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          )
-                        : const SizedBox(),
-                  ]),
+              activeIcon: Icon(Ionicons.cart),
+              icon: CartIconRedCircle(
+                cartItemCount: _cartNotifier.itemCount,
+                key: ValueKey(_cartNotifier.itemCount), // add a key to rebuild the widget
+              ),
               label: 'Cart'),
         ],
         currentIndex: _currentPage,
