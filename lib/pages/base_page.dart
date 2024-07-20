@@ -41,6 +41,7 @@ class _BasePageState extends State<BasePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final Cart _cartNotifier =Cart();
+    // Navigator.pop(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(

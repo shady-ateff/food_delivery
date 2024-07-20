@@ -13,6 +13,7 @@ class CartIconRedCircle extends StatefulWidget {
 class _CartIconRedCircleState extends State<CartIconRedCircle> {
   @override
   Widget build(BuildContext context) {
+
     return Stack(
         fit: StackFit.passthrough,
         alignment: Alignment.topRight,
@@ -27,7 +28,7 @@ class _CartIconRedCircleState extends State<CartIconRedCircle> {
                   child: Column(
                     children: [
                       Text(
-                        "${Cart.instance.itemCount}",
+                        "${widget.cartItemCount}",
                         textAlign: TextAlign.center,
                         style:
                             const TextStyle(fontSize: 8, color: Colors.white),

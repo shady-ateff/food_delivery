@@ -126,7 +126,9 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
         ]),
         bottomNavigationBar: BottomActionBar(
           onAddedToCart: () {
-            setState(() {});
+            setState(() {
+              
+            });
           },
           menuItem: menuItem,
           selectedSize: _selectedSize,
