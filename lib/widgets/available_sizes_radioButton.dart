@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
-import 'package:food_delivery/widgets/available_sizes_widget.dart';
+import 'package:food_delivery/widgets/custom_radio_button.dart';
 
 class AvailableSizesRadioButton extends StatefulWidget {
   const AvailableSizesRadioButton(
@@ -29,7 +29,7 @@ class _AvailableSizesRadioButtonState extends State<AvailableSizesRadioButton> {
         widget.menuItem.availableSizes.length,
         (index) {
           return Expanded(
-            child: AvailableSizesWidget(
+            child: CustomRadioButton(
               onPressed: () {
                 setState(() {
                   selectedSize = index;
@@ -38,7 +38,7 @@ class _AvailableSizesRadioButtonState extends State<AvailableSizesRadioButton> {
                 });
               },
               isSelected: index == selectedSize ? true : false,
-              size: widget.menuItem.availableSizes.elementAt(index),
+              text: widget.menuItem.availableSizes.elementAt(index),
             ),
           );
         },

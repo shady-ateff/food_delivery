@@ -11,6 +11,7 @@ class MenuItem {
   final String restaurantName;
   final List<String> availableSizes; // Added available sizes
   final Map<String, double> sizePrices; // Added size prices
+  final String category;
   bool? isFavorite;
 
   MenuItem({
@@ -27,7 +28,12 @@ class MenuItem {
     required this.availableSizes, // Added available sizes
     required this.sizePrices, // Added size prices
     this.isFavorite = false,
+    required this.category
   });
+
+  static List<String> getCategories(List<MenuItem> menu) {
+  return menu.map((item) => item.category).toSet().toList();
+  }
 }
 
 List<MenuItem> menu = [
@@ -35,7 +41,7 @@ List<MenuItem> menu = [
     name: "Original Beef Burger",
     location: "assets/images/item (1).png",
     price: 2.99,
-    description: "Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection. Topped with fresh lettuce, ripe tomatoes, crispy onions, and pickles, all nestled in a toasted sesame seed bun.",
+    description: "Juicy beef burger with original flavor, made from premium ground beef, seasoned with a blend of spices and grilled to perfection...",
     weight: 250.0,
     ingredients: ["Beef patty", "Lettuce", "Tomato", "Onion", "Pickles", "Burger bun"],
     calories: 550,
@@ -48,12 +54,13 @@ List<MenuItem> menu = [
       "Medium": 3.99,
       "Large": 4.99,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Beef Burger & Fries",
     location: "assets/images/item (2).png",
     price: 3.49,
-    description: "Classic beef burger served with crispy fries. The burger features a succulent beef patty, fresh lettuce, tomatoes, onions, and pickles, all inside a soft burger bun. Accompanied by a generous portion of golden, crispy fries.",
+    description: "Classic beef burger served with crispy fries...",
     weight: 300.0,
     ingredients: ["Beef patty", "Lettuce", "Tomato", "Onion", "Pickles", "Burger bun", "Fries"],
     calories: 800,
@@ -65,12 +72,13 @@ List<MenuItem> menu = [
       "Medium": 3.49,
       "Large": 4.49,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Chicken Burger\nExtra Ranch",
     location: "assets/images/item (3).png",
     price: 3.99,
-    description: "Spicy chicken burger with extra ranch dressing. This burger features a crispy chicken patty, topped with fresh lettuce, juicy tomatoes, and a generous helping of ranch dressing, all encased in a soft, toasted bun.",
+    description: "Spicy chicken burger with extra ranch dressing...",
     weight: 270.0,
     ingredients: ["Chicken patty", "Lettuce", "Tomato", "Ranch dressing", "Burger bun"],
     calories: 600,
@@ -82,12 +90,13 @@ List<MenuItem> menu = [
       "Small": 3.99,
       "Medium": 4.99,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Chicken Roll",
     location: "assets/images/item (4).png",
     price: 2.99,
-    description: "Delicious chicken roll with fresh veggies. This roll features tender chicken strips, combined with crisp lettuce and ripe tomatoes, all wrapped in a soft tortilla for a perfect handheld meal.",
+    description: "Delicious chicken roll with fresh veggies...",
     weight: 200.0,
     ingredients: ["Chicken strips", "Lettuce", "Tomato", "Tortilla wrap"],
     calories: 450,
@@ -98,12 +107,13 @@ List<MenuItem> menu = [
     sizePrices: {
       "Regular": 2.99,
     },
+    category: "Rolls",
   ),
   MenuItem(
     name: "Zo Beef Burger",
     location: "assets/images/item (5).png",
     price: 3.99,
-    description: "Special beef burger with Zo's secret sauce. This burger features a juicy beef patty, fresh lettuce, tomatoes, onions, pickles, and a unique, flavorful sauce, all served in a toasted sesame seed bun.",
+    description: "Special beef burger with Zo's secret sauce...",
     weight: 280.0,
     ingredients: ["Beef patty", "Lettuce", "Tomato", "Onion", "Pickles", "Secret sauce", "Burger bun"],
     calories: 570,
@@ -116,12 +126,13 @@ List<MenuItem> menu = [
       "Medium": 4.99,
       "Large": 5.99,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Super Beef Burger",
     location: "assets/images/item (6).png",
     price: 4.99,
-    description: "Large beef burger for the super hungry. This hefty burger comes with a thick beef patty, crisp lettuce, juicy tomatoes, onions, and pickles, all inside a large, soft burger bun.",
+    description: "Large beef burger for the super hungry...",
     weight: 350.0,
     ingredients: ["Beef patty", "Lettuce", "Tomato", "Onion", "Pickles", "Burger bun"],
     calories: 900,
@@ -132,12 +143,13 @@ List<MenuItem> menu = [
     sizePrices: {
       "Large": 4.99,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Veggie Delight",
     location: "https://www.subway.com.hk/wp-content/uploads/2017/07/vd-450x450.png",
     price: 3.49,
-    description: "A delightful burger with fresh veggies. This vegetarian option features a veggie patty, fresh lettuce, tomatoes, onions, cucumbers, and a soft, toasted bun.",
+    description: "A delightful burger with fresh veggies...",
     weight: 240.0,
     ingredients: ["Veggie patty", "Lettuce", "Tomato", "Onion", "Cucumber", "Burger bun"],
     calories: 400,
@@ -149,12 +161,13 @@ List<MenuItem> menu = [
       "Small": 3.49,
       "Medium": 4.49,
     },
+    category: "Sandwiches",
   ),
   MenuItem(
     name: "Spicy Chicken Burger",
     location: "https://heroburgers.com/wp-content/uploads/JalapenoSpicyCrispyChicken-1-min.png",
     price: 4.49,
-    description: "A burger with spicy grilled chicken. This burger features a spicy chicken patty, topped with fresh lettuce, tomatoes, and jalapenos, all inside a soft, toasted bun.",
+    description: "A burger with spicy grilled chicken...",
     weight: 250.0,
     ingredients: ["Chicken patty", "Lettuce", "Tomato", "Jalapenos", "Burger bun"],
     calories: 620,
@@ -165,12 +178,13 @@ List<MenuItem> menu = [
     sizePrices: {
       "Medium": 4.49,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Fish Fillet Burger",
     location: "https://burgerking.com.my/upload/image/Product/39/Fish%20N%20Crisp%20Ala%20Carte.png",
     price: 3.99,
-    description: "Crispy fish fillet in a soft bun. This burger features a crispy fish fillet, fresh lettuce, and tartar sauce, all inside a soft burger bun.",
+    description: "Crispy fish fillet in a soft bun...",
     weight: 230.0,
     ingredients: ["Fish fillet", "Lettuce", "Tartar sauce", "Burger bun"],
     calories: 500,
@@ -182,12 +196,13 @@ List<MenuItem> menu = [
       "Small": 3.99,
       "Medium": 4.99,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Double Cheese Burger",
-    location: "https://www.runza.com/_next/image?url=https%3A%2F%2Fdrupal.runza.com%2Fsites%2Fdefault%2Ffiles%2F_images%2Fproduct%2Fburgers_dblcheese.png&w=3840&q=75",
+    location: "https://burgerkingks.com/wp-content/uploads/2020/08/double-cheeseburger-ss-NEW.png",
     price: 5.49,
-    description: "Beef burger with double cheese. This burger features a juicy beef patty, double layers of cheddar cheese, fresh lettuce, tomatoes, onions, and a soft burger bun.",
+    description: "Beef burger with double cheese...",
     weight: 320.0,
     ingredients: ["Beef patty", "Cheddar cheese", "Lettuce", "Tomato", "Onion", "Burger bun"],
     calories: 750,
@@ -199,12 +214,13 @@ List<MenuItem> menu = [
       "Medium": 5.49,
       "Large": 6.49,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Grilled Chicken Wrap",
     location: "https://cajjhieqsa.cloudimg.io/https://f004.backblazeb2.com/file/pepe-piri-piri/misc/994fb43cc2820dfe4472a1ef5b8ccfdc.png?w=500&org_if_sml=1",
     price: 3.99,
-    description: "Grilled chicken wrap with veggies. This wrap features grilled chicken, fresh lettuce, and tomatoes, all wrapped in a soft tortilla.",
+    description: "Grilled chicken wrap with veggies...",
     weight: 220.0,
     ingredients: ["Grilled chicken", "Lettuce", "Tomato", "Tortilla wrap"],
     calories: 420,
@@ -215,12 +231,13 @@ List<MenuItem> menu = [
     sizePrices: {
       "Regular": 3.99,
     },
+    category: "Wraps",
   ),
   MenuItem(
     name: "BBQ Beef Burger",
     location: "https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-sauce-beef-burger-3000px2-1-1024x1024.png",
     price: 4.99,
-    description: "Beef burger with BBQ sauce. This burger features a juicy beef patty, tangy BBQ sauce, fresh lettuce, tomatoes, and a soft burger bun.",
+    description: "Beef burger with BBQ sauce...",
     weight: 310.0,
     ingredients: ["Beef patty", "BBQ sauce", "Lettuce", "Tomato", "Burger bun"],
     calories: 680,
@@ -232,12 +249,13 @@ List<MenuItem> menu = [
       "Small": 4.99,
       "Medium": 5.99,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Classic Hot Dog",
     location: "https://bk-latam-prod.s3.amazonaws.com/sites/burgerking.bs/files/Classic_Detail_v2-min.png",
     price: 2.99,
-    description: "Classic hot dog with mustard and ketchup. This hot dog features a grilled sausage, topped with mustard and ketchup, all inside a soft hot dog bun.",
+    description: "Classic hot dog with mustard and ketchup...",
     weight: 200.0,
     ingredients: ["Hot dog sausage", "Mustard", "Ketchup", "Hot dog bun"],
     calories: 300,
@@ -248,12 +266,13 @@ List<MenuItem> menu = [
     sizePrices: {
       "Regular": 2.99,
     },
+    category: "Sandwiches",
   ),
   MenuItem(
     name: "Cheese Steak Sandwich",
     location: "https://static.vecteezy.com/system/resources/previews/027/143/542/original/philly-cheesesteak-sandwich-isolated-on-transparent-background-free-png.png",
     price: 5.99,
-    description: "Cheese steak sandwich with peppers. This sandwich features tender steak, melted cheese, sautéed peppers and onions, all inside a soft hoagie roll.",
+    description: "Cheese steak sandwich with peppers...",
     weight: 350.0,
     ingredients: ["Steak", "Cheese", "Peppers", "Onions", "Hoagie roll"],
     calories: 900,
@@ -264,12 +283,13 @@ List<MenuItem> menu = [
     sizePrices: {
       "Large": 5.99,
     },
+    category: "Sandwiches",
   ),
   MenuItem(
     name: "Bacon Cheeseburger",
     location: "https://bk-latam-prod.s3.amazonaws.com/sites/burgerking.bs/files/New_%20BaconCheeseburger_detail.png",
     price: 5.49,
-    description: "Beef burger with bacon and cheese. This burger features a juicy beef patty, crispy bacon, melted cheddar cheese, fresh lettuce, tomatoes, and a soft burger bun.",
+    description: "Beef burger with bacon and cheese...",
     weight: 340.0,
     ingredients: ["Beef patty", "Bacon", "Cheddar cheese", "Lettuce", "Tomato", "Burger bun"],
     calories: 800,
@@ -281,12 +301,13 @@ List<MenuItem> menu = [
       "Medium": 5.49,
       "Large": 6.49,
     },
+    category: "Burgers",
   ),
   MenuItem(
     name: "Mushroom Swiss Burger",
     location: "https://hrdprodcmsimages-d4d2dhb9fvh9ftde.a03.azurefd.net/hrdprodcmsimages/hrd/uae/imagestemp/130004.png",
     price: 4.99,
-    description: "Beef burger with mushrooms and Swiss cheese. This burger features a juicy beef patty, sautéed mushrooms, melted Swiss cheese, fresh lettuce, tomatoes, and a soft burger bun.",
+    description: "Beef burger with mushrooms and Swiss cheese...",
     weight: 320.0,
     ingredients: ["Beef patty", "Mushrooms", "Swiss cheese", "Lettuce", "Tomato", "Burger bun"],
     calories: 700,
@@ -297,5 +318,6 @@ List<MenuItem> menu = [
     sizePrices: {
       "Medium": 4.99,
     },
+    category: "Burgers",
   ),
 ];

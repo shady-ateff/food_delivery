@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/pages/menu_item_details_pages.dart';
+import 'package:food_delivery/widgets/menu_item_filter.dart';
 import 'package:food_delivery/widgets/menu_widget.dart';
 import 'package:food_delivery/widgets/offers_banner.dart';
 
 // HomePage widget
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  int selectedCategory = -1;
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +30,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final catiegories = MenuItem.getCategories(menu);
+
+    debugPrint("sel Cat $selectedCategory");
+    final List filteredMenu = (selectedCategory != -1)
+        ? menu
+            .where((menuItem) =>
+                menuItem.category == catiegories.elementAt(selectedCategory))
+            .toList()
+        : menu;
     debugPrint("home page Builded");
     // Get the screen size
     Size screenSize = MediaQuery.of(context).size;
@@ -41,7 +53,22 @@ class _HomePageState extends State<HomePage> {
         const OffersBanner(),
 
         // Another spacer to add some space between the banner and the grid
-        SizedBox(height: screenSize.height * 0.03),
+        SizedBox(height: screenSize.height * 0.01),
+
+         MenuItemFilter(
+          onChangeSelection: (buttonIndex) {
+            setState(() {
+              if (selectedCategory != buttonIndex)
+                selectedCategory = buttonIndex!;
+              else
+                {selectedCategory = -1;}
+              debugPrint("category is $selectedCategory");
+            });
+          },
+          selection: selectedCategory,
+        ),
+
+        SizedBox(height: screenSize.height * 0.02),
 
         // A GridView with MenuWidgets
         Padding(
@@ -51,12 +78,13 @@ class _HomePageState extends State<HomePage> {
             physics: const NeverScrollableScrollPhysics(),
             // Shrink the GridView to fit its children
             shrinkWrap: true,
-            itemCount: menu.length,
+            itemCount: filteredMenu.length,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed(MenuItemDetailsPages.routeName, arguments: menu[index])
+                      .pushNamed(MenuItemDetailsPages.routeName,
+                          arguments: filteredMenu[index])
                       .then((value) => setState(() {
                             debugPrint("home page setState");
                           }));
@@ -75,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                   //     builder: (context) => const MenuItemDetailsPages()));
                 },
                 child: MenuWidget(
-                  menuItem: menu[index],
+                  menuItem: filteredMenu[index],
                 ),
               );
             },

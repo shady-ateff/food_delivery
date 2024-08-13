@@ -48,7 +48,7 @@ class _MenuItemDetailsPagesState extends State<MenuItemDetailsPages> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return CartPage(
                       onShoppingButtonPressed: () {
-                        Navigator.popUntil(context, ModalRoute.withName('/'));
+                        Navigator.popUntil(context, ModalRoute.withName('/home'));
                       },
                     );
                   }));

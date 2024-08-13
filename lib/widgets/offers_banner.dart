@@ -69,32 +69,32 @@ class _OffersBannerState extends State<OffersBanner> {
           ),
         ),
         // The column of indicators
-        // Column(
-        //   children: [
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: List.generate(
-        //         offers.length,
-        //         (index) => offerIndex == index
-        //             ? Padding(
-        //                 padding: const EdgeInsets.symmetric(horizontal: 2.5),
-        //                 child: CustomPaint(
-        //                   size: const Size(7, 7),
-        //                   painter: CirclePainter(Colors.white60),
-        //                 ),
-        //               )
-        //             : Padding(
-        //                 padding: const EdgeInsets.symmetric(horizontal: 2.5),
-        //                 child: CustomPaint(
-        //                   size: const Size(5, 5),
-        //                   painter: CirclePainter(Colors.black26),
-        //                 ),
-        //               ),
-        //       ),
-        //     ),
-        //     const SizedBox(height: 10),
-        //   ],
-        // ),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                offers.length,
+                (index) => offerIndex == index
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                        child: CustomPaint(
+                          size: const Size(7, 7),
+                          painter: CirclePainter(Colors.white60),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                        child: CustomPaint(
+                          size: const Size(5, 5),
+                          painter: CirclePainter(Colors.black26),
+                        ),
+                      ),
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
       ],
     );
   }

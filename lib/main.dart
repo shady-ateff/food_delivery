@@ -8,8 +8,6 @@ import 'package:food_delivery/pages/menu_item_details_pages.dart';
 import 'package:food_delivery/pages/profile_page.dart';
 import 'package:food_delivery/pages/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 void main() {
   // Ensure that pre-run app commands are executed
   // WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +31,9 @@ class MyApp extends StatelessWidget {
     // Return a MultiProvider widget with a single provider for the Cart model
     return MultiProvider(
       providers: [
+        //we're telling Flutter to automatically notify the widgets that depend on the Cart model whenever the model changes.
         ChangeNotifierProvider(create: (context) => Cart()),
-      ],
+        ],
       // Define the material app
       child: MaterialApp(
         // Disable the debug banner
@@ -95,9 +94,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        // Define the routes for the app
-        // initialRoute: '/splash',
+
         home: SplashScreen(),
+        // Define the routes for the app
         routes: {
           // '/splash': (context) => SplashScreen(),
           '/home': (context) => const BasePage(), // Default route

@@ -130,7 +130,7 @@ class _CartPageState extends State<CartPage> {
             ),
           )
         : Scaffold(
-          appBar: (Navigator.canPop(context))?  AppBar():null,
+            appBar: (Navigator.canPop(context)) ? AppBar() : null,
             body: Center(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -142,9 +142,12 @@ class _CartPageState extends State<CartPage> {
                     ),
                     Text(
                       "No Items in Cart",
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 20,
