@@ -5,16 +5,15 @@ class CustomRadioButton extends StatefulWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isSelected;
-  bool containIcon =false;
+  bool containIcon = false;
   String? iconName;
   CustomRadioButton(
       {super.key,
       required this.text,
       required this.onPressed,
       this.isSelected = false,
-      this.containIcon =false,
-      this.iconName
-      });
+      this.containIcon = false,
+      this.iconName});
 
   @override
   State<CustomRadioButton> createState() => _CustomRadioButtonState();
@@ -33,6 +32,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         },
         style: widget.isSelected
             ? ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 0.5),
                 backgroundColor: Theme.of(context).primaryColor,
                 foregroundColor: Colors.white,
                 shadowColor: Theme.of(context).primaryColor,
@@ -40,6 +40,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)))
             : ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 0.5),
                 backgroundColor: Colors.white,
                 shadowColor: Theme.of(context).primaryColor,
                 elevation: 2.5,
@@ -51,28 +52,33 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              widget.containIcon? Container(
-                height: 30,
-                child: Image.asset(
-                  "assets/images/${widget.iconName}.png",
-                  fit: BoxFit.fitHeight,
-                  color: widget.isSelected?  Colors.white : Colors.black,
+              widget.containIcon
+                  ? Container(
+                      height: MediaQuery.of(context).size.width * 0.08,
+                      child: Image.asset(
+                        "assets/images/${widget.iconName}.png",
+                        fit: BoxFit.fitHeight,
+                        color: widget.isSelected ? Colors.white : Colors.black,
+                      ),
+                    )
+                  : SizedBox(
+                      height: 0,
+                    ),
+              LayoutBuilder(
+                builder: (context, constraints) => Text(
+                  widget.text,
+                  style: widget.isSelected
+                      ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            //fontSize: constraints.maxWidth *0.24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )
+                      : Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            //fontSize: constraints.maxWidth*0.24
+                          ),
                 ),
-              ):SizedBox(height: 0,),
-          
-              Text(
-                widget.text,
-                style: widget.isSelected
-                    ? Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        )
-                    : Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
-              ),
-              
+              )
             ],
           ),
         ),

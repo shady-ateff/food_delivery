@@ -2,40 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/models/menu_item_model.dart';
 import 'package:food_delivery/widgets/favorite_icon_button.dart';
 
-// MenuWidget is a StatefulWidget that displays a menu item
 class MenuWidget extends StatelessWidget {
-  // The menu item to be displayed
   final MenuItem menuItem;
 
-  // Constructor for MenuWidget
   const MenuWidget({super.key, required this.menuItem});
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("menu item built");
-    // Get the screen size
     Size screenSize = MediaQuery.of(context).size;
-    //final textScale = MediaQuery.of(context).textScaler;
-
-    // Return a Stack with a Container and an Align widget
+    print(menuItem.location);
     return Stack(
       fit: StackFit.expand,
       children: [
-        // The Container displays the menu item details "Can Replace it by Card"
         Card(
           child: LayoutBuilder(builder: (context, constraints) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // Display the menu item image
-                Image(
-                  image: menuItem.location.startsWith("http")
-                      ? NetworkImage(menuItem.location)
-                      : AssetImage(menuItem.location),
-                  width: constraints.maxWidth * 0.55,
-                  fit: BoxFit.cover,
-                ),
-                // Display the menu item name
+                menuItem.location.startsWith("http")
+                    ? Image.network(
+                        menuItem.location,
+                        width: constraints.maxWidth * 0.55,
+                        fit: BoxFit.cover,
+                        // Placeholder widget while the image loads
+                        loadingBuilder: (context, child, loadingProgress) { // wait until photo be downloaded
+                          if (loadingProgress == null) return child; //if photo downloaded show it 
+                          return Center(
+                            child: CircularProgressIndicator( // progress indecator data downloaded
+                              color: Theme.of(context).primaryColor,
+                              value: loadingProgress.expectedTotalBytes != null // Asuree that thier is data will be downloaded "not no thing"
+                                  ? loadingProgress.cumulativeBytesLoaded /    // bytes downloaded / total bytes
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
+                        },
+                        // Error widget if the image fails to load
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.error,
+                            size: constraints.maxWidth * 0.55,
+                            color: Colors.red,
+                          );
+                        },
+                      )
+                    : 
+                    Image.asset(
+                        menuItem.location,
+                        width: constraints.maxWidth * 0.55,
+                        fit: BoxFit.cover,
+                      ),
                 Text(
                   textAlign: TextAlign.center,
                   menuItem.name,
@@ -43,7 +60,6 @@ class MenuWidget extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: constraints.maxWidth * 0.08),
                 ),
-                // Display the menu item price
                 Text(
                   "${menuItem.price}\$",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -54,7 +70,6 @@ class MenuWidget extends StatelessWidget {
             );
           }),
         ),
-        // The Align widget displays a favorite icon
         Align(
           alignment: Alignment.topLeft,
           child: Padding(

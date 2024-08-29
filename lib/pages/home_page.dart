@@ -55,18 +55,24 @@ class _HomePageState extends State<HomePage> {
         // Another spacer to add some space between the banner and the grid
         SizedBox(height: screenSize.height * 0.01),
 
-         MenuItemFilter(
-          onChangeSelection: (buttonIndex) {
-            setState(() {
-              if (selectedCategory != buttonIndex)
-                selectedCategory = buttonIndex!;
-              else
-                {selectedCategory = -1;}
-              debugPrint("category is $selectedCategory");
-            });
-          },
-          selection: selectedCategory,
-        ),
+         SingleChildScrollView(
+          // scrollDirection: Axis.horizontal,
+           child: Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 8.0),
+             child: MenuItemFilter(
+              onChangeSelection: (buttonIndex) {
+                setState(() {
+                  if (selectedCategory != buttonIndex)
+                    selectedCategory = buttonIndex!;
+                  else
+                    {selectedCategory = -1;}
+                  debugPrint("category is $selectedCategory");
+                });
+              },
+              selection: selectedCategory,
+                     ),
+           ),
+         ),
 
         SizedBox(height: screenSize.height * 0.02),
 

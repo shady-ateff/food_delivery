@@ -28,7 +28,7 @@ class _MenuItemFilterState extends State<MenuItemFilter> {
       children: List.generate(
         catiegories.length,
         (index) {
-          return Container(
+          return Expanded(
             child: CustomRadioButton(
               containIcon: true,
               iconName: catiegories.elementAt(index),
